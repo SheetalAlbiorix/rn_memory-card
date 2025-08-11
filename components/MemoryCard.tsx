@@ -1,8 +1,13 @@
+import {
+  imageAnimationConfigs,
+  textAnimationConfigs,
+} from "@/constants/animationConfigs";
 import { useReducedMotionDuration } from "@/hooks/useReducedMotionDuration";
 import { ANIMATION } from "@/styles/animation";
 import styles from "@/styles/MemoryCard.styles";
+import { generateHexFromTitle } from "@/utils/generateHexFromTitle";
 import { BlurView } from "expo-blur";
-import { AnimatePresence, MotiView } from "moti";
+import { MotiView } from "moti";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import {
   AccessibilityProps,
@@ -10,7 +15,6 @@ import {
   Image,
   Pressable,
   Text,
-  View,
 } from "react-native";
 
 export interface MemoryCardProps extends AccessibilityProps {
@@ -21,6 +25,7 @@ export interface MemoryCardProps extends AccessibilityProps {
   onToggle?: (expanded: boolean) => void;
   accessibilityRole?: AccessibilityRole;
   accessibilityLabel?: string;
+  animationKey?: "fade" | "slide" | "scale" | "rotate";
 }
 
 const MemoryCard: React.FC<MemoryCardProps> = memo(
@@ -32,10 +37,13 @@ const MemoryCard: React.FC<MemoryCardProps> = memo(
     onToggle,
     accessibilityRole = "button",
     accessibilityLabel,
+    animationKey = "fade",
     ...rest
   }) => {
     const [expanded, setExpanded] = useState(false);
     const duration = useReducedMotionDuration(ANIMATION.duration);
+    const imageAnim = imageAnimationConfigs[animationKey || "fade"];
+    const textAnim = textAnimationConfigs[animationKey || "fade"];
 
     // Preload image to avoid first-time lag
     useEffect(() => {
@@ -58,13 +66,23 @@ const MemoryCard: React.FC<MemoryCardProps> = memo(
         style={{ width: "100%" }}
         {...rest}
       >
-        {/* Card height animation */}
         <MotiView
+          from={{ height: collapsedHeight }}
           animate={{ height: expanded ? expandedHeight : collapsedHeight }}
           transition={{ type: "timing", duration }}
-          style={styles.container}
+          style={[
+            styles.container,
+            {
+              backgroundColor: generateHexFromTitle(title || ""),
+            },
+          ]}
         >
-          <View style={styles.imageWrapper}>
+          <MotiView
+            from={imageAnim.from}
+            animate={expanded ? imageAnim.animate : imageAnim.from}
+            transition={imageAnim.transition}
+            style={styles.imageWrapper}
+          >
             {image && (
               <>
                 <Image
@@ -72,7 +90,6 @@ const MemoryCard: React.FC<MemoryCardProps> = memo(
                   style={styles.image}
                   resizeMode="cover"
                 />
-                {/* Blur overlay fades out on expand */}
                 <MotiView
                   animate={{ opacity: expanded ? 0 : 1 }}
                   transition={{ type: "timing", duration }}
@@ -86,35 +103,24 @@ const MemoryCard: React.FC<MemoryCardProps> = memo(
                 </MotiView>
               </>
             )}
-
-            <AnimatePresence>
-              <MotiView
-                key={expanded ? "expandedTitle" : "collapsedTitle"}
-                from={{
-                  scale: expanded ? 1.25 : 1,
-                  translateY: 0,
-                }}
-                animate={{
-                  scale: expanded ? 1.25 : 1,
-                  translateY: expanded ? -18 : 0,
-                }}
-                transition={{
-                  type: "timing",
-                  duration,
-                  delay: expanded ? duration * 0.6 : 0,
-                }}
-                style={styles.titleOverlay}
-              >
-                <Text
-                  style={styles.titleInImage}
-                  numberOfLines={2}
-                  ellipsizeMode="tail"
-                >
-                  {title}
-                </Text>
-              </MotiView>
-            </AnimatePresence>
-          </View>
+          </MotiView>
+        </MotiView>
+        <MotiView
+          from={textAnim.from}
+          animate={expanded ? textAnim.animate : textAnim.from}
+          transition={textAnim.transition}
+          style={[
+            styles.titleOverlay,
+            { top: undefined } /* let Moti animate 'top' */,
+          ]}
+        >
+          <Text
+            style={styles.titleInImage}
+            numberOfLines={2}
+            ellipsizeMode="tail"
+          >
+            {title}
+          </Text>
         </MotiView>
       </Pressable>
     );

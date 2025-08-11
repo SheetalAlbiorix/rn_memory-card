@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   container: {
-    width: "92%",
+    width: "100%",
     alignSelf: "center",
     backgroundColor: theme.card,
     borderRadius: 20,
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   titleOverlay: {
+    position: "absolute",
     zIndex: 2,
     alignSelf: "center",
     justifyContent: "flex-end",

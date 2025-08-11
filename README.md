@@ -21,6 +21,16 @@ Moti provides a simple, declarative API for complex React Native animations, mak
 - Lazy-load high-res images after expansion
 - Add unit tests for reliability
 
+
+## Bonus
+
+
+See advanced animation and multiple videos configuration:
+
+- [Animation & Video Configurations](./docs/ANIMATION_AND_VIDEO_CONFIG.md)
+
+---
+
 ## Run Instructions
 
 1. Clone this repo

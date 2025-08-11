@@ -1,23 +1,32 @@
 import MemoryCard from "@/components/MemoryCard";
+import { memoryCardsData } from "@/constants/memoryCardsData";
 import { theme } from "@/utils/theme";
 import React from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Home = () => {
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
         backgroundColor: theme.background,
       }}
     >
-      <MemoryCard
-        title="Memory from Brooklyn"
-        image="https://andrewbarnesphotography.com.au/wp-content/uploads/2019/06/HWK-0038-Memories.jpg"
-      />
-    </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {memoryCardsData.map((item) => (
+          <View key={item.id} style={{ width: "92%", alignSelf: "center" }}>
+            <MemoryCard
+              title={item.title}
+              image={item.image}
+              animationKey={
+                item.animation as "fade" | "slide" | "scale" | "rotate"
+              }
+            />
+          </View>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
