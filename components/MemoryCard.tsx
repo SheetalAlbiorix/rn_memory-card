@@ -2,8 +2,8 @@ import { useReducedMotionDuration } from "@/hooks/useReducedMotionDuration";
 import { ANIMATION } from "@/styles/animation";
 import styles from "@/styles/MemoryCard.styles";
 import { BlurView } from "expo-blur";
-import { MotiView, useAnimationState, useDynamicAnimation } from "moti";
-import React, { memo, useCallback, useState } from "react";
+import { AnimatePresence, MotiView } from "moti";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import {
   AccessibilityProps,
   AccessibilityRole,
@@ -37,56 +37,18 @@ const MemoryCard: React.FC<MemoryCardProps> = memo(
     const [expanded, setExpanded] = useState(false);
     const duration = useReducedMotionDuration(ANIMATION.duration);
 
-    // Animation state for text overlay
-    // Two-step animation: expand, then move title up
-    const textAnim = useAnimationState({
-      collapsed: {
-        scale: 1,
-        opacity: 1,
-        shadowOpacity: 0.12,
-        translateY: 0,
-      },
-      expanded: {
-        scale: 1.25,
-        opacity: 1,
-        shadowOpacity: 0.22,
-        translateY: 0,
-      },
-      expandedUp: {
-        scale: 1.25,
-        opacity: 1,
-        shadowOpacity: 0.22,
-        translateY: -18,
-      },
-    });
-
-    // Sequence: expand, then move up
-    React.useEffect(() => {
-      if (expanded) {
-        textAnim.transitionTo("expanded");
-        const timeout = setTimeout(() => {
-          textAnim.transitionTo("expandedUp");
-        }, duration * 0.7); // move up after most of expand
-        return () => clearTimeout(timeout);
-      } else {
-        textAnim.transitionTo("collapsed");
-      }
-    }, [expanded, textAnim, duration]);
-
-    // Dynamic animation for blur overlay (do not set value during render)
-    const blurAnim = useDynamicAnimation(() => ({ opacity: 1 }));
-    React.useEffect(() => {
-      blurAnim.animateTo({ opacity: expanded ? 0 : 1 });
-    }, [expanded, blurAnim]);
+    // Preload image to avoid first-time lag
+    useEffect(() => {
+      if (image) Image.prefetch(image).catch(() => {});
+    }, [image]);
 
     const handleToggle = useCallback(() => {
       setExpanded((prev) => {
         const next = !prev;
         onToggle?.(next);
-        blurAnim.animateTo({ opacity: next ? 0 : 1 });
         return next;
       });
-    }, [onToggle, blurAnim]);
+    }, [onToggle]);
 
     return (
       <Pressable
@@ -96,39 +58,54 @@ const MemoryCard: React.FC<MemoryCardProps> = memo(
         style={{ width: "100%" }}
         {...rest}
       >
+        {/* Card height animation */}
         <MotiView
           animate={{ height: expanded ? expandedHeight : collapsedHeight }}
           transition={{ type: "timing", duration }}
           style={styles.container}
         >
           <View style={styles.imageWrapper}>
-            <View
-              style={[styles.imageFadeWrap, { justifyContent: "flex-end" }]}
-            >
-              {image && (
-                <React.Fragment>
-                  <Image
-                    source={{ uri: image }}
-                    style={styles.image}
-                    resizeMode="cover"
+            {image && (
+              <>
+                <Image
+                  source={{ uri: image }}
+                  style={styles.image}
+                  resizeMode="cover"
+                />
+                {/* Blur overlay fades out on expand */}
+                <MotiView
+                  animate={{ opacity: expanded ? 0 : 1 }}
+                  transition={{ type: "timing", duration }}
+                  style={styles.blurOverlay}
+                >
+                  <BlurView
+                    intensity={60}
+                    tint="light"
+                    style={styles.blurFill}
                   />
-                  <MotiView
-                    style={styles.blurOverlay}
-                    state={blurAnim}
-                    transition={{ type: "timing", duration }}
-                  >
-                    <BlurView
-                      intensity={60}
-                      tint="light"
-                      style={styles.blurFill}
-                    />
-                  </MotiView>
-                </React.Fragment>
-              )}
+                </MotiView>
+              </>
+            )}
+
+            {/* Title animation */}
+            <AnimatePresence>
               <MotiView
-                style={[styles.titleOverlay]}
-                state={textAnim}
-                transition={{ type: "timing", duration }}
+                key={expanded ? "expandedTitle" : "collapsedTitle"}
+                from={{
+                  scale: expanded ? 1.25 : 1,
+                  translateY: 0,
+                }}
+                animate={{
+                  scale: expanded ? 1.25 : 1,
+                  translateY: expanded ? -18 : 0,
+                }}
+                transition={{
+                  type: "timing",
+                  duration,
+                  // Only delay when expanding, skip delay when collapsing
+                  delay: expanded ? duration * 0.6 : 0,
+                }}
+                style={styles.titleOverlay}
               >
                 <Text
                   style={styles.titleInImage}
@@ -138,7 +115,7 @@ const MemoryCard: React.FC<MemoryCardProps> = memo(
                   {title}
                 </Text>
               </MotiView>
-            </View>
+            </AnimatePresence>
           </View>
         </MotiView>
       </Pressable>
