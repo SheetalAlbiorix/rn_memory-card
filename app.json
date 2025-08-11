@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sarveshalbiorix.MemoryCard"
+      "bundleIdentifier": "com.test.MemoryCard"
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +18,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.sarveshalbiorix.MemoryCard"
+      "package": "com.test.MemoryCard"
     },
     "web": {
       "bundler": "metro",
