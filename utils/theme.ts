@@ -1,0 +1,27 @@
+export const theme = {
+  primary: "#4F8EF7",
+  primaryVariant: "#1565C0",
+  secondary: "#FFB300",
+  secondaryVariant: "#FFA000",
+  accent: "#00B8D4",
+  background: "#FFFFFF",
+  surface: "#F5F5F5",
+  card: "#F8F9FA",
+  text: "#222222",
+  textSecondary: "#555555",
+  textInverse: "#FFFFFF",
+  error: "#B00020",
+  success: "#00C851",
+  warning: "#ffbb33",
+  info: "#33b5e5",
+  border: "#E0E0E0",
+  muted: "#888888",
+  shadow: "rgba(0,0,0,0.08)",
+  highlight: "#E3F2FD",
+  disabled: "#E0E0E0",
+  overlay: "rgba(0,0,0,0.04)",
+  link: "#1976D2",
+  selection: "#BBDEFB",
+};
+
+export type ThemeType = typeof theme;
