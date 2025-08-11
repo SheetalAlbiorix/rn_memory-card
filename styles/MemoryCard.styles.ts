@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   titleOverlay: {
     zIndex: 2,
     alignSelf: "center",
+    justifyContent: "flex-end",
     borderRadius: 14,
     paddingVertical: 10,
     paddingHorizontal: 16,
