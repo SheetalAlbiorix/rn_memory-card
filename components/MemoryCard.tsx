@@ -87,7 +87,6 @@ const MemoryCard: React.FC<MemoryCardProps> = memo(
               </>
             )}
 
-            {/* Title animation */}
             <AnimatePresence>
               <MotiView
                 key={expanded ? "expandedTitle" : "collapsedTitle"}
@@ -102,7 +101,6 @@ const MemoryCard: React.FC<MemoryCardProps> = memo(
                 transition={{
                   type: "timing",
                   duration,
-                  // Only delay when expanding, skip delay when collapsing
                   delay: expanded ? duration * 0.6 : 0,
                 }}
                 style={styles.titleOverlay}
