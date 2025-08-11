@@ -6,6 +6,7 @@ This document describes the available animation configurations for MemoryCard im
 ## Demo
 https://github.com/user-attachments/assets/87dfbe87-de02-41cc-ba81-cca659196d85
 
+
 ---
 
 ## Image Animation Configs
@@ -35,24 +36,6 @@ import { textAnimationConfigs } from "../constants/animationConfigs";
 
 const config = textAnimationConfigs.slide;
 ```
-
-## Multiple Videos Configuration
-
-You can configure multiple videos for cards by adding a `videos` array to your card data:
-
-```ts
-const card = {
-  title: "React Basics",
-  videos: [
-    { url: "https://example.com/video1.mp4", label: "Intro" },
-    { url: "https://example.com/video2.mp4", label: "Advanced" },
-  ],
-  animation: "fade",
-};
-```
-
-In your component, you can render these videos using a video player component and allow users to select between them.
-
 ---
 
-For more details, see the code in `constants/animationConfigs.ts` and your card data structure.
+For more details, see the code in `constants/animationConfigs.ts` and modify card data structure.
