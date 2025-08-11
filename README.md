@@ -25,7 +25,7 @@ Moti provides a simple, declarative API for complex React Native animations, mak
 ## Bonus
 
 
-See advanced animation and multiple videos configuration:
+See advanced animation configuration:
 
 - [Animation Configurations](./docs/ANIMATION_CONFIG.md)
 
