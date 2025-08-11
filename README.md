@@ -1,51 +1,32 @@
-# Welcome to your Expo app 👋
+# Memory Card Animation (React Native + Expo)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project demonstrates a tappable memory card with smooth expand/collapse animation.
 
-## Get started
 
-1. Install dependencies
+## Animation Libraries Used
+- [Moti](https://moti.fyi/)
+- [React Native Reanimated (Moti depends on reanimated)](https://docs.swmansion.com/react-native-reanimated/)
 
-   ```bash
-   npm install
-   ```
+#### Why Moti?
+Moti provides a simple, declarative API for complex React Native animations, making it easy to create smooth transitions and shared element effects. It builds on top of Reanimated, allowing for performant, interruptible, and highly customizable animations with less boilerplate code.
 
-2. Start the app
 
-   ```bash
-   npx expo start
-   ```
+## Improvements for a Real App
+- Enhanced accessibility (screen reader labels, reduced motion support)
+- Gesture support for expand/collapse (e.g., swipe or drag)
+- State separation for scalable lists or global state
+- Shared-element transitions for detail views
+- Lazy-load high-res images after expansion
+- Add unit tests for reliability
 
-In the output, you'll find options to open the app in a
+## Run Instructions
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-# rn_memory-card
+1. Clone this repo
+`git clone repo_link &&
+cd repo_name`
+2. Install node modules 
+`npm install`
+3. Using Continuous Native Generation flow 
+`npm run prebuild`
+4. Run on your desired platform
+ `npm run android` or `npm run ios`
