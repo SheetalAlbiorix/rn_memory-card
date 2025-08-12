@@ -1,34 +1,50 @@
 # Card Animation (React Native + Expo)
 
-This project demonstrates a tappable memory card with smooth expand/collapse animation.
+This project demonstrates animated memory cards with smooth entrance animations and gesture-based interactions.
 
 ## Video
 https://github.com/user-attachments/assets/e604611c-9a36-4151-981c-7d2b1fdec5b2
 
+## Run Instructions
+
+1. Clone this repo
+```bash
+git clone https://github.com/JalpeshDev/RN_Animation_Task.git 
+cd RN_Animation_Task
+```
+2. Install node modules 
+`npm install`
+3. Prebuild the project for native platforms 
+`npm run prebuild`
+4. Run on your desired platform
+ `npm run android` or `npm run ios`
+
 ## Animation Libraries Used
-- [Moti](https://moti.fyi/)
+- [Moti](https://moti.fyi/): Provides smoother animations with no FPS drop.
 - [React Native Reanimated (Moti depends on reanimated)](https://docs.swmansion.com/react-native-reanimated/)
 
 #### Why Moti?
-Moti provides a simple, declarative API for complex React Native animations, making it easy to create smooth transitions and shared element effects. It builds on top of Reanimated, allowing for performant, interruptible, and highly customizable animations with less boilerplate code.
+Moti offers a simple, declarative API for creating complex animations in React Native. It ensures smooth transitions and shared element effects without FPS drops, making it ideal for high-performance animations. Built on top of Reanimated, it allows for interruptible and highly customizable animations with minimal boilerplate code.
 
+## Features
+- **Entrance Animations**: Cards animate into view when loaded.
+- **Gesture Support**: Expand/collapse cards using swipe gestures.
+- **Smooth Transitions**: No FPS drop during animations.
+- **Reusable Components**: Modular design for scalability.
 
 ## Improvements for a Real App
 - Enhanced accessibility (screen reader labels, reduced motion support)
-- Gesture support for expand/collapse (e.g., swipe or drag)
-- State separation for scalable lists or global state
 - Shared-element transitions for detail views
 - Lazy-load high-res images after expansion
 - Add unit tests for reliability
 
-## Run Instructions
+## Steps to Add More Animations
+1. **Create a New Component**:
+   - Add a new file in the `components` folder.
 
-1. Clone this repo
-`git clone repo_link &&
-cd repo_name`
-2. Install node modules 
-`npm install`
-3. Using Continuous Native Generation flow 
-`npm run prebuild`
-4. Run on your desired platform
- `npm run android` or `npm run ios`
+2. **Update the Animation Cards**:
+   - Add a new entry to `animationCards.ts` in the `constants/data` folder.
+
+3. **Style the Component**:
+   - Use shared styles from `CardStyles.ts` or define custom styles for your new animation.
+
