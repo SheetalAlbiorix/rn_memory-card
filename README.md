@@ -3,7 +3,9 @@
 This project demonstrates animated memory cards with smooth entrance animations and gesture-based interactions.
 
 ## Video
-https://github.com/user-attachments/assets/e604611c-9a36-4151-981c-7d2b1fdec5b2
+
+https://github.com/user-attachments/assets/cb0bd6b6-a99b-4586-a6f9-896e266508e8
+
 
 ## Run Instructions
 
