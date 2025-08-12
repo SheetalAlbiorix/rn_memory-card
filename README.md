@@ -7,7 +7,7 @@ This project demonstrates animated memory cards with smooth entrance animations 
 https://github.com/user-attachments/assets/cb0bd6b6-a99b-4586-a6f9-896e266508e8
 
 
-## Run Instructions
+## Setup and Run Instructions
 
 1. Clone this repo
 ```bash
@@ -15,11 +15,20 @@ git clone https://github.com/JalpeshDev/RN_Animation_Task.git
 cd RN_Animation_Task
 ```
 2. Install node modules 
-`npm install`
+
+```bash
+npm install
+```
 3. Prebuild the project for native platforms 
-`npm run prebuild`
+```bash
+npm run prebuild
+```
 4. Run on your desired platform
- `npm run android` or `npm run ios`
+ ```bash
+ npm run android
+ # or
+ npm run ios
+```
 
 ## Animation Libraries Used
 - [Moti](https://moti.fyi/): Provides smoother animations with no FPS drop.
